@@ -3,24 +3,34 @@ stages:
   - test
   - deploy
 
+default:
+  image: node:22
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+  before_script:
+    - npm ci
+
 build-job:
   stage: build
   script:
-    - echo "Building the project..."
-    # Add your build commands here
+    - npm run build
 
 test-job:
   stage: test
   script:
-    - echo "Running tests..."
-    # Add your test commands here
+    - npm run lint
 
 deploy-job:
   stage: deploy
   script:
-    - echo "Deploying to server..."
-    # Add your deploy commands here (e.g., rsync, kubectl, etc.)
-  only:
-    - main  # Only deploy when pushing to the main branch
-
-    # TESTING GITLAB CI/CD PIPELINE
+    - npm run deploy
+  environment:
+    name: production
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: on_success
+    - when: never
