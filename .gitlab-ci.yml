@@ -22,3 +22,5 @@ deploy-job:
     # Add your deploy commands here (e.g., rsync, kubectl, etc.)
   only:
     - main  # Only deploy when pushing to the main branch
+
+    # TESTING GITLAB CI/CD PIPELINE
