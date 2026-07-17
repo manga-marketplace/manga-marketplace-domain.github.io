@@ -1,0 +1,24 @@
+stages:
+  - build
+  - test
+  - deploy
+
+build-job:
+  stage: build
+  script:
+    - echo "Building the project..."
+    # Add your build commands here
+
+test-job:
+  stage: test
+  script:
+    - echo "Running tests..."
+    # Add your test commands here
+
+deploy-job:
+  stage: deploy
+  script:
+    - echo "Deploying to server..."
+    # Add your deploy commands here (e.g., rsync, kubectl, etc.)
+  only:
+    - main  # Only deploy when pushing to the main branch
